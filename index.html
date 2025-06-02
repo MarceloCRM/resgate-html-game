@@ -9,12 +9,15 @@
 <body>
 <div id="container">
   <div id="fundoGame">
-    <div id="inicio" onclick="start()">
+    <div id="inicio">
       <h1>Resgate</h1>
       <p>Utilize a tecla W para movimentar o helicóptero para cima, 
         a tecla S para baixo e a tecla D para atirar </p>
-      <p>Clique aqui para iniciar!!!</p>
+        <p>Escolha a dificuldade para iniciar!!</p>
+        <div class="botao glow-on-hover" onclick="start(5)"> Fácil</div>
+        <div class="botao glow-on-hover" onclick="start(10)"> Difícil</div>
     </div>
+
   </div>
 </div>
 <script src="js/jquery-3.7.1.min.js"></script>

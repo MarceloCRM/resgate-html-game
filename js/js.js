@@ -1,4 +1,4 @@
-function start() { // inicio start()
+function start(velocidadex) { // inicio start()
   $("#inicio").hide();
   $("#fundoGame").append("<div id='jogador' class='anima1'></div>");
   $("#fundoGame").append("<div id='inimigo1'></div>");
@@ -13,12 +13,13 @@ function start() { // inicio start()
     S: 83,
     D: 68
   }
-  var velocidade = 7
-  var posicaoY = parseInt(Math.random() * 334)
+
+  var velocidade = velocidadex
   var podeAtirar = true
   var pontos = 0;
   var salvos = 0;
   var perdidos = 0;
+  var posicaoY = parseInt(Math.random() * 334)
   var fimdejogo = false;
 
   jogo.pressionou = []
@@ -50,13 +51,13 @@ function start() { // inicio start()
     if (jogo.pressionou[TECLA.W]) {
       var top = parseInt($("#jogador").css("top"))
       if (top > 10) {
-        $("#jogador").css("top", top - 13)
+        $("#jogador").css("top", top - 15)
       }
     }
     if (jogo.pressionou[TECLA.S]) {
       var top = parseInt($("#jogador").css("top"))
       if (top < 500) {
-        $("#jogador").css("top", top + 13)
+        $("#jogador").css("top", top + 15)
       }
     }
     if (jogo.pressionou[TECLA.D]) {
@@ -103,7 +104,7 @@ function start() { // inicio start()
 
   function executaDisparo() {
     posicaoX = parseInt($("#disparo").css("left"))
-    $("#disparo").css("left", posicaoX + 15)
+    $("#disparo").css("left", posicaoX + 25)
 
     if ((posicaoX > 900)) {
       window.clearInterval(tempoDisparo)
@@ -118,7 +119,6 @@ function start() { // inicio start()
     var colisao2 = ($("#jogador").collision($("#inimigo2")));
     var colisao3 = ($("#disparo").collision($("#inimigo1")));
     var colisao4 = ($("#disparo").collision($("#inimigo2")));
-    var colisao5 = ($("#jogador").collision($("#amigo")));
     var colisao6 = ($("#inimigo2").collision($("#amigo")));
     if (colisao1.length > 0) {
 
@@ -163,11 +163,6 @@ function start() { // inicio start()
       $("#disparo").css("left", 950)
       reposicionaInimigo2();
     }
-
-    // if (colisao5.length > 0) {
-    //   reposicionaAmigo();
-    //   $("#amigo").remove()
-    // }
 
     if (colisao6.length > 0) {
       amigoX = parseInt($("#amigo").css("left"));
