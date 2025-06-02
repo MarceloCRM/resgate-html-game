@@ -8,6 +8,9 @@ function start(velocidadex) { // inicio start()
   $("#fundoGame").append("<div id='inimigo2'></div>");
   $("#fundoGame").append("<div id='amigo' class='anima3'></div>");
   $("#fundoGame").append("<div id='placar'></div>")
+  $("#fundoGame").append("<div><img  class='vidas' src='./imgs/vidas.png'></div>")
+  $("#fundoGame").append("<div><img  class='vidas' style='right: 27px;' src='./imgs/vidas.png'></div>")
+  $("#fundoGame").append("<div><img  class='vidas' style='right: 54px;' src='./imgs/vidas.png'></div>")
   // variaveis
   var jogo = {}
   var TECLA = {
@@ -42,9 +45,9 @@ function start(velocidadex) { // inicio start()
       $("#record").remove()
       $("#record").remove()
       $("#fundoGame").append("<div id='fim'></div>")
-      if (velocidade == 5 ) {
+      if (velocidade == 6 ) {
         $("#fim").append("<h1 id='gameOver'> Game Over </h1><p>Sua pontuação foi de: " + score + "</p>" + "<p>Maior pontuação: " + recordeFacil + "</p>"  
-          + "<div id='reinicia' onClick=reiniciaJogo(5)><p class='glow-on-hover' style='padding: 5px; margin-top: 20px;'>Jogar novamente</p></div>" 
+          + "<div id='reinicia' onClick=reiniciaJogo(6)><p class='glow-on-hover' style='padding: 5px; margin-top: 20px;'>Jogar novamente</p></div>" 
           + "<div onClick=menuprincipal()><p class='glow-on-hover' style='padding: 5px; margin-top: 8px;'>Voltar para menu principal</p></div>")
       }
       else{
@@ -69,7 +72,7 @@ function start(velocidadex) { // inicio start()
 
 
   function verificafim() {
-    if (score > recordeFacil && velocidadex == 5) {
+    if (score > recordeFacil && velocidadex == 6) {
       recordeFacil = score
     }
     else if (score > recordeDificil && velocidadex == 10) {
@@ -101,7 +104,7 @@ function start(velocidadex) { // inicio start()
   function movejogador() {
     if (jogo.pressionou[TECLA.W]) {
       var top = parseInt($("#jogador").css("top"))
-      if (top > 10) {
+      if (top > 20) {
         $("#jogador").css("top", top - 15)
       }
     }
@@ -122,8 +125,10 @@ function start(velocidadex) { // inicio start()
     $('#inimigo1').css('top', posicaoY)
     if (posicaoX <= 3) {
       posicaoY = parseInt(Math.random() * 334)
-      $('#inimigo1').css('left', 710)
+      $('#inimigo1').css('left', 810)
       $('#inimigo1').css('top', posicaoY)
+      vidas--;
+      $(".vidas").last().remove()
     }
   }
 
@@ -132,7 +137,9 @@ function start(velocidadex) { // inicio start()
     $('#inimigo2').css('left', posicaoX - velocidade)
     $('#inimigo2').css('top', 520)
     if (posicaoX <= 1) {
-      $('#inimigo2').css('left', 720)
+      $('#inimigo2').css('left', 770)
+      vidas--
+      $(".vidas").last().remove()
     }
   }
 
@@ -157,7 +164,7 @@ function start(velocidadex) { // inicio start()
     posicaoX = parseInt($("#disparo").css("left"))
     $("#disparo").css("left", posicaoX + 25)
 
-    if ((posicaoX > 900)) {
+    if ((posicaoX > 890)) {
       window.clearInterval(tempoDisparo)
       tempoDisparo = null
       $("#disparo").remove()
@@ -171,6 +178,7 @@ function start(velocidadex) { // inicio start()
     var colisao3 = ($("#disparo").collision($("#inimigo1")));
     var colisao4 = ($("#disparo").collision($("#inimigo2")));
     var colisao6 = ($("#inimigo2").collision($("#amigo")));
+
     if (colisao1.length > 0) {
 
       inimigo1X = parseInt($("#inimigo1").css("left"))
@@ -178,9 +186,10 @@ function start(velocidadex) { // inicio start()
       explosao1(inimigo1X, inimigo1Y)
 
       posicaoY = parseInt(Math.random() * 334)
-      $("#inimigo1").css("left", 710)
+      $("#inimigo1").css("left", 810)
       $("#inimigo1").css("top", posicaoY)
-      vidas -= 1
+      vidas--
+      $(".vidas").last().remove()
     }
 
     if (colisao2.length > 0) {
@@ -188,12 +197,10 @@ function start(velocidadex) { // inicio start()
       inimigo2X = parseInt($("#inimigo2").css("left"))
       inimigo2Y = parseInt($("#inimigo2").css("top"))
       explosao2(inimigo2X, inimigo2Y)
-
       $("#inimigo2").remove()
-      // $("#inimigo2").css("left", 780)
-      // $("#inimigo2").css("top", 477)
       reposicionaInimigo2();
-      vidas -= 1
+      vidas--
+      $(".vidas").last().remove()
     }
 
     if (colisao3.length > 0) {
@@ -201,9 +208,9 @@ function start(velocidadex) { // inicio start()
       inimigo1X = parseInt($("#inimigo1").css("left"))
       inimigo1Y = parseInt($("#inimigo1").css("top"))
       explosao1(inimigo1X, inimigo1Y)
-      $("#disparo").css("left", 950)
+      $("#disparo").css("left", 1050)
       posicaoY = parseInt(Math.random() * 334)
-      $("#inimigo1").css("left", 710)
+      $("#inimigo1").css("left", 810)
       $("#inimigo1").css("top", posicaoY)
     }
 
@@ -212,7 +219,7 @@ function start(velocidadex) { // inicio start()
       inimigo2Y = parseInt($("#inimigo2").css("top"))
       $("#inimigo2").remove()
       explosao2(inimigo2X, inimigo2Y)
-      $("#disparo").css("left", 950)
+      $("#disparo").css("left", 1050)
       reposicionaInimigo2();
     }
 
@@ -221,8 +228,11 @@ function start(velocidadex) { // inicio start()
       amigoY = parseInt($("#amigo").css("top"));
       explosao3(amigoX, amigoY);
       $("#amigo").remove();
+      $("#inimigo2").remove()
       reposicionaAmigo();
-      vidas -= 1
+      reposicionaInimigo2();
+      vidas--
+      $(".vidas").last().remove()
     }
   }
 

@@ -8,6 +8,12 @@
   src: url(../fontes/PixelGamer-Regular.otf);
 }
 
+@font-face {
+  font-family: Ponto;
+  src: url(../fontes/game_over.ttf);
+}
+
+
 h1 {
   font-family: Titulo;
   font-size: 30px;
@@ -55,7 +61,7 @@ body {
   width: 140px;
   height: 110px;
   position: absolute;
-  left: 689px;
+  left: 810px;
   top: 253px;
   background-image: url(../imgs/navealienigena.png);
   background-size: 150px;
@@ -65,7 +71,7 @@ body {
   width: 180px;
   height: 70px;
   position: absolute;
-  left: 775px;
+  left: 770px;
   top: 477px;
   background-image: url(../imgs/meteoro.png);
   background-size: 180px;
@@ -91,6 +97,8 @@ body {
   margin-right: auto;
   margin-top: 100px;
   text-align: center;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 #inicio p {
@@ -163,8 +171,10 @@ body {
   position: absolute;
   left: 5px;
   top: 5px;
-  background-color: #48ff00;
   color: white;
+  font-size: 15px;
+  letter-spacing: -1px;
+  font-family: Ponto;
 }
 
 h2 {
@@ -265,9 +275,10 @@ h2 {
   color: #48ff00;
 }
 
-h1 {
+#gameOver {
+  margin-top: 25px;
   font-family: GameOver;
-  font-size: 20px;
+  font-size: 40px;
   color: #003b6b;
 }
 
@@ -290,4 +301,12 @@ h1 {
 
 #fim h1 {
   margin-bottom: 10px;
+}
+
+.vidas {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  right: 0px;
+  top:5px;
 }
