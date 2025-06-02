@@ -1,3 +1,6 @@
+var recordeFacil = 0;
+var recordeDificil = 0;
+var tentativas = 0;
 function start(velocidadex) { // inicio start()
   $("#inicio").hide();
   $("#fundoGame").append("<div id='jogador' class='anima1'></div>");
@@ -5,7 +8,6 @@ function start(velocidadex) { // inicio start()
   $("#fundoGame").append("<div id='inimigo2'></div>");
   $("#fundoGame").append("<div id='amigo' class='anima3'></div>");
   $("#fundoGame").append("<div id='placar'></div>")
-
   // variaveis
   var jogo = {}
   var TECLA = {
@@ -13,12 +15,10 @@ function start(velocidadex) { // inicio start()
     S: 83,
     D: 68
   }
-
   var velocidade = velocidadex
   var podeAtirar = true
-  var pontos = 0;
-  var salvos = 0;
-  var perdidos = 0;
+  var score = 0;
+  var vidas = 3;
   var posicaoY = parseInt(Math.random() * 334)
   var fimdejogo = false;
 
@@ -26,25 +26,76 @@ function start(velocidadex) { // inicio start()
   $(document).keydown(function (e) {
     jogo.pressionou[e.which] = true
   })
-
+  
   $(document).keyup(function (e) {
     jogo.pressionou[e.which] = false
   })
-
+  
   // game loop
   jogo.timer = setInterval(loop, 30)
 
   function loop() {
-    movefundo()
-    movejogador()
-    moveinimigo1()
-    moveinimigo2()
-    colisao()
+    verificafim()
+    if (fimdejogo == true) {
+      clearInterval(jogo.timer)
+      limpacenario()
+      $("#record").remove()
+      $("#record").remove()
+      $("#fundoGame").append("<div id='fim'></div>")
+      if (velocidade == 5 ) {
+        $("#fim").append("<h1 id='gameOver'> Game Over </h1><p>Sua pontuação foi de: " + score + "</p>" + "<p>Maior pontuação: " + recordeFacil + "</p>"  
+          + "<div id='reinicia' onClick=reiniciaJogo(5)><p class='glow-on-hover' style='padding: 5px; margin-top: 20px;'>Jogar novamente</p></div>" 
+          + "<div onClick=menuprincipal()><p class='glow-on-hover' style='padding: 5px; margin-top: 8px;'>Voltar para menu principal</p></div>")
+      }
+      else{
+        $("#fim").append("<h1 id='gameOver'> Game Over </h1><p>Sua pontuação foi de: " + score + "</p>" + "<p>Maior pontuação: " + recordeDificil + "</p>"  
+          + "<div id='reinicia' onClick=reiniciaJogo(10)><p class='glow-on-hover' style='padding: 5px; margin-top: 20px;'>Jogar novamente</p></div>"
+          + "<div onClick=menuprincipal()><p class='glow-on-hover' style='padding: 5px; margin-top: 8px;'>Voltar para menu principal</p></div>")
+      } 
+      $("#inicio").append("<div id='record'>Recorde modo fácil: <span id='scoreFacil'></span></div>")
+      $("#inicio").append("<div id='record'>Recorde modo difícil: <span id='scoreDificil'></span></div>")
+      $("#scoreFacil").html(recordeFacil)
+      $("#scoreDificil").html(recordeDificil)
+    } 
+    else {
+      movefundo()
+      movejogador()
+      moveinimigo1()
+      moveinimigo2()
+      colisao()
+      ganhapontos()
+    }
   }
+
+
+  function verificafim() {
+    if (score > recordeFacil && velocidadex == 5) {
+      recordeFacil = score
+    }
+    else if (score > recordeDificil && velocidadex == 10) {
+      recordeDificil = score
+    }
+    if(vidas <= 0) {
+      fimdejogo = true
+    }
+  }
+
+  function limpacenario() {
+    $("#jogador").remove();
+    $("#inimigo1").remove();
+    $("#inimigo2").remove();
+    $("#amigo").remove();
+    $("#placar").remove()
+  } 
 
   function movefundo() {
     esquerda = parseInt($("#fundoGame").css("background-position"))
     $("#fundoGame").css("background-position", esquerda - 1)
+  }
+
+  function ganhapontos() {
+    score++;
+    $("#placar").html("Pontos: " + score)
   }
 
   function movejogador() {
@@ -129,6 +180,7 @@ function start(velocidadex) { // inicio start()
       posicaoY = parseInt(Math.random() * 334)
       $("#inimigo1").css("left", 710)
       $("#inimigo1").css("top", posicaoY)
+      vidas -= 1
     }
 
     if (colisao2.length > 0) {
@@ -141,7 +193,7 @@ function start(velocidadex) { // inicio start()
       // $("#inimigo2").css("left", 780)
       // $("#inimigo2").css("top", 477)
       reposicionaInimigo2();
-
+      vidas -= 1
     }
 
     if (colisao3.length > 0) {
@@ -170,6 +222,7 @@ function start(velocidadex) { // inicio start()
       explosao3(amigoX, amigoY);
       $("#amigo").remove();
       reposicionaAmigo();
+      vidas -= 1
     }
   }
 
@@ -242,5 +295,15 @@ function start(velocidadex) { // inicio start()
   }
 
   // fim do loop
-
+  
 } // fim start()
+
+function reiniciaJogo(velociadadex) {
+  $("#fim").remove()
+  start(velociadadex)
+}
+
+function menuprincipal() {
+  $("#fim").remove();
+  $("#inicio").show()
+}
