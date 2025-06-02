@@ -24,36 +24,39 @@ body {
 #fundoGame {
   width: 950px;
   height: 630px;
-  background-image: url(../imgs/fundo_game.jpg);
+  background-image: url(../imgs/fungogame.jpg);
   border-color: #FFF;
   border-style: solid;
 }
 
 #jogador {
-  /* width: 256px;
-  height: 66px; */
+  width: 90px;
+  height: 100px;
+  transform: rotate(90deg);
   position: absolute;
-  left: 8px;
+  left: 95px;
   top: 179px;
-  /* background-image: url(../imgs/apache.png); */
+  background-image: url(../imgs/naveespacial.png);
 }
 
 #inimigo1 {
-  width: 256px;
-  height: 107px;
+  width: 140px;
+  height: 110px;
   position: absolute;
   left: 689px;
   top: 253px;
-  background-image: url(../imgs/inimigo1.png);
+  background-image: url(../imgs/navealienigena.png);
+  background-size: 150px;
 }
 
 #inimigo2 {
-  width: 165px;
-  height: 77px;
+  width: 180px;
+  height: 70px;
   position: absolute;
   left: 775px;
   top: 477px;
-  background-image: url(../imgs/inimigo2.png);
+  background-image: url(../imgs/meteoro.png);
+  background-size: 180px;
 }
 
 #amigo {
@@ -61,7 +64,7 @@ body {
   height: 51px; */
   position: absolute;
   left: 10px;
-  top: 464px;
+  top: 500px;
   /* background-image: url(../imgs/amigo.png); */
 }
 
@@ -76,35 +79,47 @@ body {
   padding: 10px;
 }
 
-.anima1 {
+/* .anima1 {
   width: 226px;
   height: 66px;
-  background-image: url(/imgs/helicoptero.png);
-  animation: play .1s steps(2) infinite;
+  background-image: url(/imgs/naveespacial.png);
 }
 
 @keyframes play {
-  from {background-position: 0px;}
-  to {background-position: -450px;}
-}
+  from {
+    background-position: 0px;
+  }
+
+  to {
+    background-position: -450px;
+  }
+} */
 
 .anima3 {
-  width: 44px;
-  height: 51px;
-  background-image: url(/imgs/amigo.png);
-  animation: play2 .9s steps(12) infinite;
+  width: 80px;
+  height: 120px;
+  background-image: url(/imgs/spriteplaneta.png);
+  animation: play2 1.8s steps(6) infinite;
+  background-size: 500px;
+  background-repeat: no-repeat;
 }
 
 @keyframes play2 {
-  from {background-position: 0px;}
-  to {background-position: -534px;}
+  from {  
+    background-position: 0px;
+  }
+
+  to {
+    background-position: -500px;
+  }
 }
 
 #disparo {
   width: 50px;
-  height: 8px;
+  height: 20px;
   position: absolute;
   background-image: url(/imgs/disparo.png);
+  background-size: 50px;
 }
 
 #explosao1 {
@@ -114,7 +129,27 @@ body {
 }
 
 #explosao2 {
-  width: 15px;
-  height: 87;
+  width: 150px;
+  height: 150px;
+  position: absolute;
+}
+
+#placar {
+  width: 450px;
+  height: 50px;
+  position: absolute;
+  left: 5px;
+  top: 590px;
+}
+
+h2 {
+  font-family: Titulo;
+  font-size: 20px;
+  color: #FFF;
+}
+
+#explosao3 {
+  width: 150px;
+  height: 150px;
   position: absolute;
 }
